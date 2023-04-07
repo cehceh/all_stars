@@ -94,7 +94,7 @@ DATABASES = {
         'ENGINE':'django.db.backends.mysql',
         'NAME': 'amramerjob$default',  # Name of the database itself
         'USER':'amramerjob',
-        'PASSWORD': env['PASSWORD'],
+        'PASSWORD': 'hgpl]GGI', #env['PASSWORD'],
         'HOST': 'amramerjob.mysql.pythonanywhere-services.com',
         'PORT':'3306',
         'OPTIONS': {
