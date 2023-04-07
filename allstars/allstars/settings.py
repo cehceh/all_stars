@@ -37,7 +37,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 
 
-ALLOWED_HOSTS = ['amramerjob.pythonanywhere.com', ]
+ALLOWED_HOSTS = ['amramerjob.pythonanywhere.com', '*']
 
 
 # Application definition
@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #* local apps
+    'apps.home',
 ]
 
 MIDDLEWARE = [
@@ -85,24 +88,44 @@ WSGI_APPLICATION = 'allstars.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    # "default": env.db()
-    'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        # "default": env.db()
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
 
-        'ENGINE':'django.db.backends.mysql',
-        'NAME': 'amramerjob$default',  # Name of the database itself
-        'USER':'amramerjob',
-        'PASSWORD': 'hgpl]GGI', #env['PASSWORD'],
-        'HOST': 'amramerjob.mysql.pythonanywhere-services.com',
-        'PORT':'3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+        #     'ENGINE':'django.db.backends.mysql',
+        #     'NAME': 'amramerjob$default',  # Name of the database itself
+        #     'USER':'amramerjob',
+        #     'PASSWORD': 'hgpl]GGI', #env['PASSWORD'],
+        #     'HOST': 'amramerjob.mysql.pythonanywhere-services.com',
+        #     'PORT':'3306',
+        #     'OPTIONS': {
+        #         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        #     },
 
+        }
     }
-}
+else:
+    DATABASES = {
+        # "default": env.db()
+        'default': {
+            # 'ENGINE': 'django.db.backends.sqlite3',
+            # 'NAME': BASE_DIR / 'db.sqlite3',
+
+            'ENGINE':'django.db.backends.mysql',
+            'NAME': 'amramerjob$default',  # Name of the database itself
+            'USER':'amramerjob',
+            'PASSWORD': 'hgpl]GGI', #env['PASSWORD'],
+            'HOST': 'amramerjob.mysql.pythonanywhere-services.com',
+            'PORT':'3306',
+            'OPTIONS': {
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
+
+        }
+    }
 
 
 # Password validation
