@@ -1,0 +1,58 @@
+{% load static %}
+<!--  -->
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% trans "ERP System" %}</title>
+
+    {% include 'base/css.html' %}
+
+    {% block stylesheets %} {% endblock stylesheets %}
+
+</head>
+
+<!-- onload="" -->
+<body class="" >
+    <!-- Site wrapper -->
+    <div class="wrapper" id="app">
+        <!-- Navbar -->
+        {% include 'navbar.html' %}
+        <!-- /.navbar -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="card-body"> 
+                
+                {% block content %}
+                    
+                {% endblock content %}
+            </div>
+        </section>
+        <!-- /.content -->
+
+    </div>
+    <!-- ./wrapper -->
+
+    {% include 'base/footer.html' %}
+
+
+    <!-- jQuery -->
+    {% include 'base/js.html' %}
+    
+    
+    <!-- ! for Js code scripts -->
+    {% block javascripts %}
+    <!--  -->
+    {% endblock javascripts %}
+
+
+
+</body>
+
+</html>
+

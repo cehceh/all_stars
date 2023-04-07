@@ -1,0 +1,139 @@
+{% load static %}
+{% load i18n %}
+
+
+<!--  -->
+
+<nav class="navbar navbar-expand navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="brand-link">
+            <a href="/" class="brand-link">
+                <img src="{% static 'dashboard/logo/bs.jpeg' %}" alt="Brand Logo"
+                class="brand-image img-circle img-bordered-sm elevation-3" style="opacity: .8;">
+            </a>    
+            <small class="brand-text font-weight-bold">BS-Store ({{title}})</small>
+        </li>
+        <li class="nav-item">
+            <!-- <a class="nav-link text-primary">
+                <strong>{{title}}</strong>
+            </a> -->
+        </li>
+
+        <li class="nav-link">
+            <!-- <div class="navbar-search-block">
+                <form class="form-inline"> -->
+                    <!-- <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-search"></i> &nbsp;
+                                <i class="fas fa-barcode"></i> &nbsp;
+                                <i class="fas fa-qrcode"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control barcode-search" placeholder="Search By Barcode ...." id="barcode-search">
+                    </div> -->
+                <!-- </form>
+            </div> -->
+        </li>            
+    </ul> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <ul class="navbar-nav ml-0">
+        <li class="nav-item ">
+            <form class="form-inline my-6 my-lg-0">
+                <div class="input-group input-group-sm">
+                    <input class="form-control form-control-sm" id="barcode-search" type="search" placeholder="Search By Barcode ..." aria-label="Search">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-search"></i> &nbsp;
+                            <i class="fas fa-barcode"></i> &nbsp;
+                            <i class="fas fa-qrcode"></i>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </li>
+        <!-- <li class="nav-item">
+            <div class="form-group">
+                <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-search"></i> &nbsp;
+                            <i class="fas fa-barcode"></i> &nbsp;
+                            <i class="fas fa-qrcode"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control barcode-search" placeholder="Search By Barcode ...." id="barcode-search">
+                </div>                                                    
+            </div>
+        </li> -->
+    </ul>
+    
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+        <!-- Navbar Search -->
+        
+        <li class="nav-item ">
+            <form class="form-inline my-6 my-lg-0">
+                <div class="input-group input-group-sm">
+                    <input class="form-control form-control-sm" id="product-search" type="search" placeholder="Product Search ..." aria-label="Search">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </li>
+        
+        <!-- Languages Dropdown Menu -->
+        <li class="nav-item dropdown">
+            
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-label="language dropdown menu">
+                <i class="fas fa-globe"></i>
+            </a>            
+            <form method="post" id="div">
+                {% csrf_token %}
+                
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <span class="dropdown-item dropdown-header">{% trans 'Change Languages' %} </span>
+                    
+                    {% get_available_languages as LANGUAGES %}
+                    {% for language in LANGUAGES %}
+                        <div class="dropdown-divider"></div>
+                        
+                        <a href='{% url "change_language" language.0 %}' class="dropdown-item" aria-label="select language">
+                            <i class="fas fa-language mr-2"></i> 
+                            {{ language.0|language_name_local }}
+                        </a>
+                    {% endfor %}
+                </div>
+
+            </form>
+        </li>
+
+        <!-- # Logout -->
+        {% if user.is_authenticated %}
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="#" class="nav-link">
+                    {{request.user}} &nbsp; <span class="fas fa-user-circle"></span>
+                </a>
+            </li>    
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{% url 'account_logout' %}" class="nav-link">
+                    {% trans 'Logout' %} &nbsp; <span class="fas fa-sign-out-alt"></span>
+                </a>
+            </li>
+        {% else %}
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="/accounts/login/" class="nav-link">
+                    {% trans 'Log In' %} &nbsp; <span class="fas fa-door-open"></span>
+                </a>
+            </li>
+        {% endif %}
+        
+    </ul>
+    
+</nav>
+
+
