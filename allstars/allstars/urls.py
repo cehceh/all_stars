@@ -24,6 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path(
-        '/', home_page, name="home"
+        '', home_page, name="home"
     ),
 ]

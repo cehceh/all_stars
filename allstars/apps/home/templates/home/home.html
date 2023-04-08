@@ -30,15 +30,15 @@
                     <br />
                     <br />
                     
-                    <form method="post" role="form">
+                    <form method="post" class="home" role="form">
                         {% csrf_token %}
                         <div class="input-group mb-3">
-                            <input class="form-control" placeholder="Username">
+                            <textarea class="form-control" placeholder="Put URLs Here ...." rows="10"></textarea>
                             
                         </div>
                         
                         <div class="input-group mb-4">
-                            <input type="password" class="form-control" placeholder="password">
+                            <!-- <input type="text" class="form-control" placeholder=""> -->
                             
                         </div>
                         
@@ -59,3 +59,59 @@
     </div>
 
 {% endblock content %}
+
+
+{% block javascripts %}
+<script>
+    $(document).ready(function(){
+        $.ajaxSetup({
+            headers: {
+                "X-CSRFToken": '{{ csrf_token }}'
+            }
+        });
+
+        $(document).on("submit", ".home", function (e) {
+        
+            $.ajax({
+                type: "POST",
+                url: '{% url "home" %}',
+                data: {
+                    'any': ''
+                },
+                success: function (data) {
+                    // const acc = data.error;
+                    
+                    $(function() {
+                        var Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: true,
+                            timer: 50000
+                        });
+                        toastr.error(data['error']);
+                        toastr.success(data['msg']);
+                        // if (data['type'] == 'error'){
+                        //     // console.log(data['type'])
+                        //     toastr.error(data['error']);
+                        // } else if (data['type'] == 'success') {
+                        //     toastr.success(data['error']);
+                            
+                        // } else if (data['type'] == 'info') {
+                        //     toastr.info(data['error']);
+                        // }
+                    });
+                },
+                error: function () {
+                    console.log("ERROR with ajax request in home page !!!");
+                }
+            });
+            e.preventDefault();
+        });
+
+
+    });
+    
+
+</script>
+
+{% endblock javascripts %}
